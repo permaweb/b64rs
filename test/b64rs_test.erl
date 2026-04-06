@@ -32,3 +32,32 @@ badarg_encode_test() ->
 
 malformed_input_test() ->
     ?assertError(badarg, b64rs:decode(<<"not!valid@base64$$$">>)).
+
+standard_b64_decode_test() ->
+    Std = base64:encode(crypto:strong_rand_bytes(256)),
+    ?assertEqual(base64:decode(Std), b64rs:decode(Std)).
+
+standard_padded_without_special_chars_test() ->
+    ?assertEqual(<<"M">>, b64rs:decode(<<"TQ==">>)).
+
+standard_unpadded_test() ->
+    ?assertEqual(<<"M">>, b64rs:decode(<<"TQ">>)).
+
+urlsafe_padded_test() ->
+    ?assertEqual(<<251>>, b64rs:decode(<<"-w==">>)).
+
+urlsafe_unpadded_test() ->
+    ?assertEqual(<<251>>, b64rs:decode(<<"-w">>)).
+
+mixed_alphabet_test() ->
+    ?assertEqual(<<251, 255>>, b64rs:decode(<<"+_8=">>)).
+
+whitespace_tolerant_decode_test() ->
+    ?assertEqual(<<"Ma">>, b64rs:decode(<<"TW E=">>)).
+
+invalid_length_remainder_test() ->
+    ?assertError(badarg, b64rs:decode(<<"A">>)).
+
+regression_nif_decode_sample_test() ->
+    Encoded = <<"txy88T84q+0b8LKUqiVpU4xujEEArBvFaWvHXTlDty0b8VbAWOxp3Gg8">>,
+    ?assertEqual(base64:decode(Encoded), b64rs:decode(Encoded)).
