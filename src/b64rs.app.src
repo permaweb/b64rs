@@ -1,0 +1,10 @@
+{application, b64rs, [
+    {description, "SIMD-accelerated URL-safe Base64 encoding/decoding NIF. Drop-in replacement for b64fast using Rust base64-simd."},
+    {vsn, "0.1.0"},
+    {modules, []},
+    {registered, []},
+    {applications, [kernel, stdlib]},
+    {env, []},
+    {licenses, ["MIT"]},
+    {links, [{"GitHub", "https://github.com/permaweb/b64rs"}]}
+]}.

@@ -1,0 +1,9 @@
+/_build/
+/deps/
+/priv/
+/native/b64rs/target/
+erl_crash.dump
+*.beam
+*.o
+*.so
+*.dylib
