@@ -61,3 +61,8 @@ invalid_length_remainder_test() ->
 regression_nif_decode_sample_test() ->
     Encoded = <<"txy88T84q+0b8LKUqiVpU4xujEEArBvFaWvHXTlDty0b8VbAWOxp3Gg8">>,
     ?assertEqual(base64:decode(Encoded), b64rs:decode(Encoded)).
+
+regression_urlsafe_trailing_bits_sample_test() ->
+    Encoded = <<"42jky7O3rzKkMOfHBXgK-304YjulzEYqHc9qyjT3efb">>,
+    Canonical = <<"42jky7O3rzKkMOfHBXgK+304YjulzEYqHc9qyjT3efb=">>,
+    ?assertEqual(base64:decode(Canonical), b64rs:decode(Encoded)).
